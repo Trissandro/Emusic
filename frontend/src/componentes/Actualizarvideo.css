@@ -1,0 +1,43 @@
+.formactualizarvideo{
+        display: flex;
+        flex-direction: column;
+        background-color: #fff;
+        border-radius: 7px;
+        padding: 40px;
+        box-shadow: 10px 10px 40px rgba(0, 0, 0, 0.4);
+        gap: 5px;
+        margin-right: 20%;
+        margin-left: 20%;
+        margin-bottom: 12%;
+    }
+h2{
+    padding-top: 0%;
+}
+.formactualizarvideo p{
+    color: blue;
+    margin: 0%;
+    padding: 0%;
+}
+
+.formactualizarvideo input{
+    padding: 15px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    margin-bottom: 5px;
+    margin-top: 3px;
+    border-radius: 4px;
+    transition: all linear 160ms;
+    outline: none;
+}
+
+.formactualizarvideo .formButton{
+    width: 250px;
+    border: none;
+    padding: 10px;
+    background-color: blueviolet;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    align-items: center;
+
+}

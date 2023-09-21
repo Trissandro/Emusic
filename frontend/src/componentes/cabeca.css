@@ -1,0 +1,42 @@
+#rr{
+    margin: 5px;
+    padding: 0;
+}
+#navegacao{
+    border-bottom: 1px ;
+    height: 60px;
+    border-radius: 0px 0px 0px 0px;
+	align-items: center;
+    background-color: black;
+}
+#area{
+    align-items: center;
+    background-color: black;
+border-bottom: 1px solid #ccc;
+}
+
+#menu{
+    background-color: black;
+
+    display: flex;
+	justify-content: space-between;
+	align-items: center;
+    margin-top: 0px;
+    font-size: xx-large;
+}
+
+#logo{
+    margin: 0;
+    align-items: center;
+  margin-left: auto;
+  margin-right: 2%;
+  font-size:xx-large;
+}
+a{
+    padding: 13px;
+    text-decoration: none;
+    color: white;
+}
+a:hover{
+    color: #98CBFF;
+}

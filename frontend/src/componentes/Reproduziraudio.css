@@ -1,0 +1,116 @@
+#corpo {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url('../luz.png');
+  }
+  
+  #corpo h1 {
+    color: whitesmoke;
+  }
+  
+  #audioform {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  #card {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0,0,0,.5);
+  }
+  
+  #display {
+    width: 85%;
+    border-radius: 20px 20px 20px 20px;
+    background: linear-gradient(0deg, rgb(40, 26, 92) 27%, rgb(122, 86, 188) 75%);
+    backdrop-filter: blur(30px) hue-rotate(20deg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1em;
+  
+    > * {
+      text-align: center;
+    }
+  
+    #art {
+      height: 200px;
+      margin: 0 auto;
+    }
+  }
+  
+  #list {
+    width: 40%;
+    border-radius: 0 20px 20px 0;
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .item {
+    padding: 0 1em;
+    background: none;
+    transition: all .3s ease;
+  
+    &:first-of-type {
+      border-radius: 0 20px 0 0;
+    }
+  
+    &:last-of-type {
+      border-radius: 0 0 20px 0;
+    }
+  
+    &.is-active {
+      background: linear-gradient(0deg, rgb(40, 26, 92) 27%, rgb(122, 86, 188) 75%);
+      backdrop-filter: blur(30px) hue-rotate(20deg);
+      transition: all .3s ease;
+    }
+  
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  .botaorecuarmu{
+    margin-left: 0%;
+}
+  .botaoavancar{
+    margin-left: 0%;
+}
+  /* Seu CSS para a classe .videoplayerform */
+/* ... */
+
+#lado-esquerdo{
+  width: calc(10%);
+  margin-right: 1%;
+}
+#lado-meio{
+  margin-left: 5%;
+  width: calc(45%);
+  margin-right: 1%;
+  justify-content: center;
+  align-items: center;
+}
+#lado-direito {
+  width: calc(10%);
+  margin-right: 1%;
+}
+
+#lado-de-baixo {
+  width: 100%;
+}
+div{
+  color: whitesmoke;
+}
+.videos ul{
+  list-style: none;
+}
+
+/* Restante do seu CSS para as classes .radiobotao, #dadovideo, .comm, etc. */
+/* ... */

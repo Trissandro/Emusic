@@ -1,0 +1,687 @@
+import React, { useEffect, useState } from 'react'
+import Cabecalho from './Cabecalho';
+import './perfil.css';
+import axios from 'axios';
+import {FaTrash} from "react-icons/fa";
+import { Link } from 'react-router-dom';
+
+
+const Perfil = () => {
+  const [videos,setVideos]=useState([]);
+  const [video,setVideo]= useState({
+    titulo:"",
+    descricao:"",
+    capa:""
+  });
+  const handleChange = (e) =>{
+    setVideo(prev=>({...prev, [e.target.name]: e.target.value}));
+  };
+  console.log(video);
+
+  const handleClick = async e =>{
+    e.preventDefault();
+    try{
+      await axios.post("http://localhost:8800/video", video)
+    }catch(err){
+
+    }
+  }
+
+  useEffect(()=>{
+    const fetchAllvideos= async()=>{
+      try{
+        const res=await axios.get("http://localhost:8800/video")
+      setVideos(res.data);
+      }catch(err){
+        console.log(err)
+      }
+    }
+    fetchAllvideos();
+  },[]);
+
+  const handleDelete = async (idv)=>{
+    try {
+      await axios.delete("http://localhost:8800/video/"+idv)
+      console.log(idv)
+      window.location.reload()
+    } catch (err) {
+      console.log(err)
+    }
+
+  }
+
+
+  return (
+    <>
+      <Cabecalho></Cabecalho>
+      <div className="container">
+    <div className="left-content">
+    <div className="top-content">
+    <h2>Adicionar um novo Vídeo</h2>
+      <div className="formadicionarvideo">
+        <input type='text' placeholder='Título' onChange={handleChange} name="titulo"/>
+        <input type='text' placeholder='Descrição' onChange={handleChange} name="descricao"/>
+        <input type='text' placeholder='Capa' onChange={handleChange} name="capa" />
+      <button onClick={handleClick} type='submit'>Adicionar</button>
+      </div>
+      <h1>Adicionando </h1>
+      </div>
+      <div className="divider-gray1"></div>
+      <div className="bottom-content2">
+        {videos.map((videos)=>(
+          <div className="videos" key={videos.idvideo}>
+            {videos.capa && <img src={videos.capa} alt=""/>}
+            <h1>{videos.titulo} </h1>
+            <h1>{videos.descricao}</h1>
+            <div>
+            <button  className='editar'> <Link to={`/Actualizarvideo/${videos.idvideo}`}></Link></button>
+          <FaTrash className='eliminar' onClick={()=> handleDelete(videos.idvideo)}></FaTrash>
+            </div>
+           </div> 
+      ))}
+    </div>
+    </div>
+    
+    <div className="divider-gray"></div>
+    <div className="right-content">
+      <div className="cont">
+        <h2>Conteúdo do lado direito (Parte Superior)</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla gravida ligula sed arcu efficitur varius.</p>
+      </div>
+      <div className="divider-gray1"></div>
+      <div className="bottom-content">
+        <h2>Conteúdo do lado direito (Parte Inferior)</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla gravida ligula sed arcu efficitur varius.</p>
+      </div>
+    </div>
+  </div>
+    </>
+  )
+}
+
+export default Perfil;
+
+
+////////////////////////////////////////
+
+import React, { useEffect, useState } from 'react'
+import Cabecalho from './Cabecalho';
+import './perfil.css';
+import axios from 'axios';
+import {FaTrash} from "react-icons/fa";
+import { Link } from 'react-router-dom';
+
+
+const Perfil = () => {
+  const [videos,setVideos]=useState([]);
+  const [video, setVideo] = useState({
+    titulo: '',
+    descricao: '',
+    capa: null
+  });
+
+  const handleChange = (e) =>{
+    setVideo(prev=>({...prev, [e.target.name]: e.target.value}));
+  };
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    setVideo((prevState) => ({ ...prevState, capa: file }));
+  };
+console.log(video)
+  const handleClick = async (event) => {
+    event.preventDefault();
+
+    const formData = new FormData();
+    formData.append('titulo', video.titulo);
+    formData.append('descricao', video.descricao);
+    formData.append('capa', video.capa);
+
+    try {
+      await axios.post('http://localhost:8800/video', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+
+      console.log('Vídeo adicionado com sucesso!');
+    } catch (error) {
+      console.error('Erro ao adicionar vídeo:', error);
+    }
+  };
+
+
+  useEffect(() => {
+    obterVideos();
+  }, []);
+
+  const obterVideos = async () => {
+    try {
+      const response = await axios.get('http://localhost:8800/video');
+      setVideos(response.data);
+    } catch (error) {
+      console.error('Erro ao obter vídeos:', error);
+    }
+  };
+  /*useEffect(()=>{
+    const fetchAllvideos= async()=>{
+      try{
+        const res=await axios.get("http://localhost:8800/video")
+      setVideos(res.data);
+      }catch(err){
+        console.log(err)
+      }
+    }
+    fetchAllvideos();
+  },[]);*/
+
+  const handleDelete = async (idv)=>{
+    try {
+      await axios.delete("http://localhost:8800/video/"+idv)
+      console.log(idv)
+      window.location.reload()
+    } catch (err) {
+      console.log(err)
+    }
+
+  }
+  return (
+    <>
+      <Cabecalho></Cabecalho>
+      <div className="container">
+    <div className="left-content">
+    <div className="top-content">
+    <h2>Adicionar um novo Vídeo</h2>
+      <div className="formadicionarvideo">
+        <input type='text' placeholder='Título' onChange={handleChange} name="titulo" required/>
+        <input type='text' placeholder='Descrição' onChange={handleChange} name="descricao" required/>
+        <input type='file' placeholder='Capa' onChange={handleFileChange} id="capa"required />
+      <button onClick={handleClick} type='submit'>Adicionar</button>
+      </div>
+      <h1>Adicionando </h1>
+      </div>
+      <div className="divider-gray1"></div>
+      <div className="bottom-content2">
+        {videos.map((video)=>(
+          <div className="videos"key={video.idvideo} >
+            {<img
+                src={`http://localhost:8800/video/${video.idvideo}/capa`}
+                alt={video.titulo}
+              />}
+              <h3>{video.titulo}</h3>
+              <p>{video.descricao}</p>
+            <div>
+            <button  className='editar'> <Link to={`/Actualizarvideo/${video.idvideo}`}></Link></button>
+          <FaTrash className='eliminar' onClick={()=> handleDelete(video.idvideo)}></FaTrash>
+            </div>
+           </div> 
+      ))}
+    </div>
+    </div>
+    
+    <div className="divider-gray"></div>
+    <div className="right-content">
+      <div className="cont">
+        <h2>Conteúdo do lado direito (Parte Superior)</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla gravida ligula sed arcu efficitur varius.</p>
+      </div>
+      <div className="divider-gray1"></div>
+      <div className="bottom-content">
+        <h2>Conteúdo do lado direito (Parte Inferior)</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla gravida ligula sed arcu efficitur varius.</p>
+      </div>
+    </div>
+  </div>
+    </>
+  )
+}
+
+export default Perfil;
+
+
+
+
+// Reproduzir audio 
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
+import Cabecalho from './Cabecalho';
+import Rodape from './Rodape';
+
+
+const Reproduziraudio = () => {
+  const { idaudio } = useParams();
+  const [audio, setAudio] = useState(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+    console.log(idaudio)
+
+    useEffect(() => {
+        const getAudio = async () => {
+          try {
+            const response = await axios.get(`http://localhost:8800/audio/${idaudio}`);
+            setAudio(response.data.audioo);
+            console.log(response.data.audioo);
+          } catch (error) {
+            console.error('Erro ao obter o caminho do vídeo:', error);
+          }
+        };
+      
+        getAudio();
+      }, [idaudio]);
+
+  
+
+  
+  return (
+    <>
+    <Cabecalho></Cabecalho>
+    <div>
+      <h1>Reprodutor de Vídeo</h1>
+      {audio ? ( <div>
+      <button onClick={toggleAudio}>
+        {isPlaying ? 'Pausar' : 'Reproduzir'}
+      </button>
+      <audio id="audio" src={audio} />
+    </div>
+      ) : (
+        <p>Carregando vídeo...</p>
+      )}
+    </div>
+    <Rodape></Rodape>
+    </>
+    
+  );
+};
+
+export default Reproduziraudio;
+
+
+//veio do perfil
+/*const [video, setVideo] = useState({
+  titulo: '',
+  autor: '',
+  tipo:'',
+  path:'',
+  compositor:'',
+  editora:'',
+  grupo:'',
+  historia:'',
+  periodo:'',
+  userId:'b39087ed-5729-4029-9ae4-8adef3a510de'
+});
+const handleChange = (e) =>{
+  setVideo(prev=>({...prev, [e.target.name]: e.target.value}));
+};
+
+const handleFileChange = (event) => {
+  const file = event.target.files[0];
+  setVideo((prevState) => ({ ...prevState, capa: file}));
+};
+const handleFileChange1 = (event) => {
+  const file1 = event.target.files[0];
+  setVideo((prevState) => ({ ...prevState, path: file1}));
+};
+console.log(video)
+const handleClick = async (event) => {
+  event.preventDefault(); 
+  const formData = new FormData();
+  formData.append('titulo', video.titulo);
+  formData.append('descricao', video.autor);
+  formData.append('tipo', video.tipo);
+  formData.append('path', video.path);
+  formData.append('compositor', video.compositor);
+  formData.append('editora', video.editora);
+  formData.append('grupo', video.grupo);
+  formData.append('historia', video.historia);
+  formData.append('periodo', video.periodo);
+  formData.append('userID', video.userId);
+
+
+  try {
+    await axios.post('http://localhost:3333/midias', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
+
+    console.log('Midia adicionada com sucesso!');
+  } catch (error) {
+    console.error('Erro ao adicionar midia:', error);
+  }
+};*/
+
+/*const handleVideoUpload = (event) => {
+  const file = event.target.files[0];
+  const videoURL = URL.createObjectURL(file);
+  
+  console.log("cá está "+videoURL);
+} <h2 className='adicionarh2' >Adicionar uma nova midia</h2>
+      <input type='text' placeholder='Título' onChange={handleChange} name="titulo" required/>
+      <input type='text' placeholder='Autor' onChange={handleChange} name="autor" required/>
+      <input type='text' placeholder='Compositor' onChange={handleChange} name="compositor" />
+      <input type='text' placeholder='Editora' onChange={handleChange} name="editora" />
+      <input type='text' placeholder='Grupo' onChange={handleChange} name="grupo" />
+      <input type='text' placeholder='Historia' onChange={handleChange} name="historia" />
+      <input type='text' placeholder='Tipo' onChange={handleChange} name="tipo" required/>
+      <input type='file' placeholder='Capa' onChange={handleFileChange} id="capa"required />
+      <input type="file" placeholder="Vídeo" onChange={handleFileChange1} name="path"required />
+      <p name="userID" value="b39087ed-5729-4029-9ae4-8adef3a510de"></p>
+    <button onClick={handleClick} type='submit' className='btnadicionar'>Adicionar</button>
+    </div>
+    <h1>Adicionando </h1>*/
+
+
+    //veio do cadastro
+
+    /*const [usuario, setUsuario] = useState({
+      name: '',
+      email: '',
+      passe:'',
+      admin: '',
+      seguidores: '',
+       seguindo:''
+    });
+  
+    const handleChange = (event) => {
+      const { name, value } = event.target;
+      setUsuario({ ...usuario, [name]: value });
+    };
+  
+    const handleClick = async (event) => {
+      event.preventDefault();
+  
+      const formData = new FormData();
+      formData.append('name', usuario.name);
+      formData.append('email', usuario.email);
+      formData.append('passe', usuario.passe);
+      formData.append('admin', usuario.admin);
+      formData.append('seguidores', usuario.seguidores);
+      formData.append('seguindo', usuario.seguindo);
+  
+  
+  
+      try {
+        await axios.post('http://localhost:3333/user', usuario);
+  
+        console.log('Usuário adicionado com sucesso!');
+      } catch (error) {
+        console.error('Erro ao adicionar Usuário:', error);
+      }
+    };
+  
+    return (
+      <div className='paginacadastro'>
+         <h2>Cadastro de Usuário</h2>
+        <div className="formadicionarusuario">
+        <label htmlFor="nome">Nome</label>
+          <input type='text' placeholder='Nome do usuário' onChange={handleChange} name="name" required/>
+          <label htmlFor="email">Email</label>
+          <input type='email' placeholder='E-mail do usuário' onChange={handleChange} name="email" required/>
+          <label htmlFor="password">Senha</label>
+          <input type='text' placeholder='Senha do usuário' onChange={handleChange} name="passe" required/>
+          <label htmlFor="telefone">Número de Telefone</label>
+          <input type='number' placeholder='Número de telefone do usuário' onChange={handleChange} name="telefone" required />
+        <button className='botaocadastrar' onClick={handleClick} type='submit'>Cadastar</button>
+        <Link to="/">Login </Link>
+        </div>
+      </div>
+    )
+  }*/
+
+
+  Radio:
+
+import { RadioBrowserApi } from "radio-browser-api";
+import React from "react";
+import Station from "../../components/Station";
+import styles from "./styles.module.css";
+const api = new RadioBrowserApi("Radio");
+
+const Radio = () => {
+  const [search, setSearch] = React.useState("Angola");
+  const [results, setResults] = React.useState({});
+  const [isFetching, setIsFetching] = React.useState(false);
+  const [playingRadio, setPlayingRadio] = React.useState(-1);
+
+  const fetchRadio = async () => {
+    setResults({});
+    try {
+      setIsFetching(true);
+      const data = await api.searchStations({
+        country: search === "" ? "Angola" : search,
+        limit: 100,
+      });
+      setResults(data);
+      setIsFetching(false);
+    } catch (error) {
+      console.log(error);
+      setIsFetching(false);
+    }
+  };
+
+  React.useEffect(() => {
+    fetchRadio();
+  }, [search]);
+
+  return (
+    <div className={styles.container}>
+    
+      {isFetching && (
+        <div className={styles.progress_container}>
+          <Loading />
+        </div>
+      )}
+      {Object.keys(results).length !== 0 && (
+        <div className={styles.results_container}>
+          {results.length !== 0 && (
+            <div className={styles.songs_container}>
+              {results.map((station, index) => (
+                <Station
+                  key={station.id}
+                  station={station}
+                  onClick={() => {
+                    if (index === playingRadio) {
+                      setPlayingRadio(-1);
+                    } else {
+                      setPlayingRadio(index);
+                    }
+                  }}
+                  isPlaying={index === playingRadio}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default Radio;
+
+/*import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { Link, useParams } from 'react-router-dom';
+import Cabecalho from './Cabecalho';
+import Rodape from './Rodape';
+import {FaArrowLeft, FaArrowRight} from 'react-icons/fa';
+import './Reproduziraudio.css';
+
+const Reproduziraudio = () => {
+  const currentuserId = localStorage.getItem('currentuserId');
+  console.log('user id do login: ',currentuserId); 
+ 
+  if (!localStorage.getItem('currentuserId')) {
+    localStorage.removeItem('currentuserId');
+    alert('Logout já foi feito e será reencaminhado ao ecrã de Login');
+    window.location.href = `/`;
+  }
+
+  const { idaudio } = useParams();
+  const [audioo, setAudio] = useState(null);
+  const [imagem, setImagem] = useState(null);
+  const [titulo,setTitulo]=useState('');
+  const [autor, setAutor]=useState('');
+  const [comments, setComments] = useState([]);
+  const [coment, setComent] = useState('');
+  const [audios, setAudios] = useState([]);
+
+
+  const handleReproduzir = (index) => {
+    console.log('index'+index)
+    if (index >= 0 && index < audios.length) {
+      sessionStorage.setItem('currentaudioindex', index);
+      const audioId = audios[index].id;
+      window.location.href = `/Reproduziraudio/${audioId}`;
+    }
+  };
+  const handleReproduzirProximo = () => {
+    const ob = sessionStorage.getItem('currentaudioindex');
+    const nextVideoIndex = (parseInt(ob) + 1) % audios.length;
+    handleReproduzir(nextVideoIndex);
+  };
+  const handleReproduzirAnterior = () => {
+    const ob = sessionStorage.getItem('currentaudioindex');
+    const previousVideoIndex = (parseInt(ob) -1) % audios.length;
+    handleReproduzir(previousVideoIndex);
+  };
+
+
+    console.log('o id do audio',idaudio)
+    useEffect(() => {
+        const getAudio = async () => {
+          try {
+            const response = await axios.get(`http://localhost:3333/audios/${idaudio}`);
+            setAudio(response.data.path);
+            setImagem(response.data.capa)
+            setTitulo(response.data.titulo)
+            setAutor(response.data.autor);
+            const autormusicaid = response.data.userId;
+            sessionStorage.setItem('autormusicaid', autormusicaid);
+            console.log("Dono da música: ", autormusicaid)
+            console.log('response: ', response);
+          } catch (error) {
+            console.error('Erro ao obter o caminho do vídeo:', error);
+          }
+        };
+      
+        getAudio();
+      }, [idaudio]);
+      useEffect(() => {
+        const fetchComments = async () => {
+          const response = await fetch(`http://localhost:3333/comments/${idaudio}`);
+          const data = await response.json();
+          setComments(data);
+        };
+        fetchComments(idaudio);
+      }, [idaudio]);
+      
+      useEffect(() => {
+        obteraudios();
+      }, []);
+    
+      const obteraudios = async () => {
+        try {
+          const response = await axios.get('http://localhost:3333/midias');
+          // Filtrar os audios, mostrando apenas os com tipo "musica"
+          const audiosFiltrados = response.data.filter((video) => video.tipo !== 'video');
+          setAudios(audiosFiltrados);
+        } catch (error) {
+          console.error('Erro ao obter vídeos:', error);
+        }
+      };
+        
+      
+        const submitComment = async (e) => {
+          e.preventDefault();
+          try {
+            const response = await axios.post('http://localhost:3333/coments', {
+              coment,
+              userId: currentuserId,
+              midiaId: idaudio,
+            });
+      
+            console.log(response.data); 
+            handleReload();
+          } catch (error) {
+            console.error(error);
+          }
+          }
+          const handleReload = () => {
+            window.location.reload();
+          };
+          
+
+  return (
+    <>
+    <Cabecalho></Cabecalho>
+    <div id="corpo">
+     <div className='card'>
+     
+        <div id="display">
+        <div id="header">
+        <Link to={'/Cantor'}><h1 id="title">{autor}</h1></Link> 
+          <p>
+            <span id="song_title">{titulo}</span>
+          </p>
+        </div>
+        <div id="image">
+        {<img src={imagem} alt={titulo} id="art"/>}
+        </div>
+        <div className='botaorecuaravancarm'>
+          <button className='botaorecuarm'><FaArrowLeft onClick={handleReproduzirAnterior}></FaArrowLeft> Anterior</button>
+          {      <audio id="audio" src={audioo} controls /> }
+          <button className='botaoavancarm'><FaArrowRight onClick={handleReproduzirProximo}></FaArrowRight> Próximo</button>
+        </div>
+      </div>
+        
+       <div></div>
+    </div>
+    </div>
+    <div>
+      <h1>Lista de Vídeos</h1>
+      <ul>
+        {audios.map((audio) => (
+          <li key={audio.id}>
+            <Link to={`/Reproduziraudio/${audio.id}`} onClick={() => handleReproduzir(audio.id)}>
+            <img src={audio.capa} alt={audio.titulo} />
+            {audio.autor}
+              {audio.titulo}</Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+    <div>
+            <h1>Comentar</h1>
+            <form onSubmit={submitComment}>
+              <div>
+                <label htmlFor="coment">Escreva o seu comentário:</label>
+                <input
+                  type="text"
+                  id="coment"
+                  value={coment}
+                  onChange={(e) => setComent(e.target.value)}
+                />
+              </div>
+              <button type="submit">Comentar</button>
+            </form>
+            <h2 className='comm'>Comentários</h2>
+            <div className='comenta'>
+              <ul>
+                {comments.map((comment) => (
+                  <li key={comment.id}>
+                    <strong>Usuário:</strong> {comment.userId}<br />
+                    <strong>Comentário:</strong> {comment.coment}<br />
+
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+    <Rodape></Rodape>
+    </>
+  );
+};
+
+export default Reproduziraudio;
+ */

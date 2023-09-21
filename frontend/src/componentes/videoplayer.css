@@ -1,0 +1,82 @@
+.videoplayerform video{
+    width: 500px;
+    height: 500px;
+
+}
+.videoplayerform{
+    padding-bottom: 5%;
+    padding-top: 5%;
+    padding-left: 2%;
+    padding-right: 2%;
+}
+#dadovideo{
+    border-top: 1px solid #ccc;
+    display: flex;
+    flex-direction: column;
+    margin: 0%;
+    padding: 0%;
+    text-align: left;
+}
+.dadoh2{
+    display: inline;
+    flex-direction:row;
+    margin: 0%;
+    padding: 0%;
+    margin-left: 1%;
+    margin-top: 2%;
+    padding: 0%;
+    text-align: left;
+    margin-bottom: 1%;
+    color: whitesmoke;
+}
+.dadoh3{
+    display: flex;
+    flex-direction: column;
+    margin: 0%;
+    padding: 0%;
+    margin-left: 1%;
+    margin-top: 0%;
+    padding: 0%;
+    text-align: left;
+    margin-bottom: 1%;
+    color: whitesmoke;
+}
+.dado1, a .dado1{
+    margin: 0%;
+    padding: 0%;
+}
+.comenta{
+    margin-top: 2%;
+    margin-left: 2%;
+    margin-right: 10%;
+    text-align: left;
+    background-color: black;
+    color: #ffffffe6;
+    margin-bottom: 3%;
+}
+.comm{
+    color: #1c87bc;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+}
+.comenta li{
+    list-style-type: none;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #cccccc2b;
+
+}
+.botaorecuaravancar{
+    display: flex;
+    align-items: center;
+}
+.botaorecuar{
+    margin-left: 40%;
+}
+.botaorecuaravancar button{
+    align-items: center;
+margin-right:2%;
+justify-content: center;
+}
+.botaoavancar{
+    margin-left: 0%;
+}

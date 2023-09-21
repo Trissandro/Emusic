@@ -1,0 +1,45 @@
+.Contacto2 img{
+        width: 100%;
+        height: 70%;
+        object-fit: cover;
+        flex-grow: 1;
+        margin: 0;
+        padding: 0;
+      }
+      .Contacto1 img{
+        width: 100%;
+        height: 70%;
+        flex-grow: 1;
+        margin: 0;
+        padding: 0;
+      }
+p{
+    color: white;
+    font-weight: bold;
+}
+.Contacto1{
+        width: 250px;
+        height: 250px;
+      padding: 10px;
+      text-align: center;
+      flex-direction: column;
+      align-items: center;
+      }
+      .Contacto2{
+        width: 250px;
+        height: 250px;
+      padding: 10px;
+      text-align: center;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 10%;
+      }
+.contactos{
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        grid-gap: 20px;
+        padding-left:  40%;
+        padding: auto;
+        align-items: center;
+        margin-bottom: 5%;
+        }

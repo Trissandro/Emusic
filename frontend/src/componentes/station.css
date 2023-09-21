@@ -1,0 +1,13 @@
+.song_container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+.play_btn {
+  color: #0058b5;
+}
+.play_btn:hover {
+  color: #0058b5;
+}

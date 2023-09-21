@@ -1,0 +1,25 @@
+.termoscorpo{
+    color: white;
+    flex-direction: column;
+    margin-bottom: 10%;
+}
+.listatermos{
+    align-items:start;
+    padding-top: 20px;
+    text-align: left;
+    padding-left: 2%;
+    font-weight: bold;
+}
+.servicos{
+    color: white;
+    flex-direction: column;
+    padding-bottom: 30%;
+}
+.servicoslista{
+    align-items:start;
+    padding-top: 20px;
+    text-align: left;
+    padding-left: 2%;
+    font-weight: bold;
+    color: white;
+}

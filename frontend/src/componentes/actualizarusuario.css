@@ -1,0 +1,89 @@
+.pageformeditarusuario{
+    border-top: 1 px solid #ccc;
+    padding-bottom: 20%;
+    align-items: left;
+
+}
+.formdadousuario, .formeditarusuario{
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    border-radius: 7px;
+    padding: 40px;
+    box-shadow: 10px 10px 40px rgba(0, 0, 0, 0.4);
+    gap: 5px;
+    padding-top: 1%;
+    margin-top: 10%;
+    margin-left: 30%;
+    margin-right: 30%;
+    margin-bottom: 0%;
+    align-items: left;
+}
+div .topoformeditarusuario{
+margin-bottom: 10%;    
+}
+h1{
+    color: #1c87bc;
+    
+}
+.formdadousuario h2, .formeditarusuario h2{
+    margin-top: 0%;
+    margin-bottom: 1%;
+    padding-top: 1%;
+    padding-bottom:1%;
+    align-items: left;
+
+}
+button{
+    background-color: #086898;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 600;
+    border: none !important;
+    cursor: pointer;
+    margin-left: 35%;
+    margin-right: 35%;
+    border: 1px solid #086898;
+    border-radius: 7px;
+    margin-top: 1%;
+  }
+button:hover {
+    transform: scale(1.05);
+    background-color: #004161;
+  }
+
+  
+  
+  h2 {
+    font-size: 30px;
+    margin-bottom: 20px;
+    color: #000000;
+    align-items: left;
+
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+        align-items: left;
+
+  }
+  
+  .form-group  label {
+    display: block;
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #555;
+    align-items: left;
+}
+  
+.form-group h2, .form-group textarea {
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 18px;
+    width: 100%;
+    background-color: #f1f1f1;
+    align-items: left;
+
+  }
+  
